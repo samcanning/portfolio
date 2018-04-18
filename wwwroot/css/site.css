@@ -33,3 +33,27 @@
         display: none;
     }
 }
+
+.project
+{
+    vertical-align: top;
+    display: inline-block;
+    width: 33%;
+}
+
+.projectimg
+{
+    width: 98%;
+}
+
+.description
+{
+    margin-top: 10px;
+    text-align: justify;
+    width: 98%;
+}
+
+.github
+{
+    font-size: 12pt;
+}
