@@ -23,3 +23,19 @@ body{padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;paddin
 {
     font-size: 12pt;
 }
+
+@media only screen and (min-width: 480px) and (max-width: 1024px)
+{
+    .project
+    {
+        width: 32.5%;
+    }
+}
+
+@media only screen and (max-width: 480px)
+{
+    .project
+    {
+        width: 100%;
+    }
+}
