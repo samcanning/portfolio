@@ -1,11 +1,12 @@
 ﻿<h1>Sam Canning</h1>
-<p><a href="https://github.com/samcanning">Github</a> | <a href="https://www.linkedin.com/in/sam-canning-b972b9155/">LinkedIn</a></p>
+<p><a href="https://docs.google.com/document/d/1W8shoCO_kaWOFoEdTT1npx0ImKpRpjYFDf0jCqVr2rE/edit?usp=sharing">Resume</a> | <a href="https://github.com/samcanning">Github</a> | <a href="https://www.linkedin.com/in/sam-canning-b972b9155/">LinkedIn</a></p>
 <h2>Projects</h2>
 <div class="project">
     <h3><a href="http://musicollage.xyz">Musicollage</a> <a class="github" href="https://github.com/samcanning/musicollage">(Github)</a></h3>
     <img class="projectimg" src="~/images/musicollage.png">
     <div class="description">
         <p>A music rating site using MusicBrainz API for artist and release metadata, and CoverArtArchive API for art. Users can rate albums and create collages of their highest-rated albums, with an option to constrain results to a particular era.</p>
+        <p>When viewing a page for a release that has yet to be rated, the MusicBrainz API is called to retreive metadata and the CoverArtArchive API is called to retreive a URL for the artwork, if available. Upon first rating of any release, this data is saved to the database to circumvent future API calls and decrease time to load release pages.</p>
         <p>Users can also create and view artwork collages for other users, or view the site-wide top 10 based on average ratings of all users.</p>
         <p>To try it out, feel free to use the following account: name "testuser", password "qwerty123".</p>
     </div>
@@ -15,6 +16,9 @@
     <img class="projectimg" src="~/images/podcastsitebuilder.png">
     <div class="description">
         <p>Podcast Site Builder is a website templates for podcasts. Upon launching, an admin can set any RSS feed and the site will populate with the title and episodes of the podcast. The admin can then add a description for the podcast, social media links, hosts, and social media links for the hosts.</p>
+        <p>Upon initial admin registration after launching, that admin will be marked in the database as "head admin". Only the head admin is able to add and remove other admins, but subsequent admins otherwise share the same permissions.</p>
+        <p>Upon login, the "admin" (and "head", if logged in as the first admin) attributes is stored in the browser session and checked on all "/admin" routes to ensure edits are only made by users with the correct permissions.</p>
+        <p>If an image is uploaded for a host, it is given a random 16-digit alphanumeric string as a key (while confirming that the key is not already in use by another hero portrait, in case of the unlikely event that the same key is generated twice) and stored in an Amazon S3 bucket while the key is stored in the database.</p>
         <p>As an example, I've created a website for the podcast "My Brother, My Brother and Me".</p>
     </div>
 </div>
@@ -23,9 +27,12 @@
     <img class="projectimg" src="~/images/dotacreator.png">
     <div class="description">
         <p>This site is based on the "Ability Draft" mode in Dota 2. Using an existing Dota 2 character as a base, mix and match any of the spells in the game to create your own hero with a new name, biography, and optional custom portrait.</p>
+        <p>For custom hero potraits, the same key generation method is used as with Podcast Site Builder to store the image in an S3 bucket. If an image is not uploaded, the "image" attribute is left null in the database, resulting in the portrait of the selected base hero being used, as with the third custom hero in the above image.</p>
+        <p>To account for the wide variety of spells - for example, while all spells will have a name and a description, attributes such as area of effect and cooldown will not always be applicable - most spell data is stored in the database as a single "details" attribute, in the form of a string formatted to be later parseable as a JSON object.</p>
         <p>If users create an account, they can rate other users' heroes, allowing display of all user-created heroes <a href="http://www.dotacreator.com/heroes/top">sorted by rating</a> (as with Musicollage, feel free to log in with "testuser / qwerty123").</p>
         <p>The site also has an API with data for the game's <a href="http://dotacreator.com/api/hero/10">heroes</a> and <a href="http://dotacreator.com/api/spell/27">spells</a>.</p>
+        <p>Note: not all hero and spell data is currently entered and the game is updated frequently, so forms for data entry and updates exist in an admin-only section of the site.</p>
     </div>
 </div>
 <hr>
-<p>All of the above projects were built in C# with ASP.NET Core.</p>
+<p>All of the above projects were built in C# with ASP.NET Core and MySQL.</p>
